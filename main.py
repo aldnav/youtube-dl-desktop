@@ -1,12 +1,6 @@
 import eel
-
-import threading
-
 import db
-
 from download import download
-
-import time
 
 
 @eel.expose
@@ -26,12 +20,10 @@ def download_loop():
         items = db.list_unstarted_queue()
         try:
             item = items[0]
-            print(item)
-            # loop.call_soon(download, item['key'])
             download(item['key'])
         except IndexError:
             pass
-        time.sleep(3)
+        eel.sleep(3)
 
 
 def start_app():
@@ -45,7 +37,5 @@ def start_app():
 
 
 if __name__ == '__main__':
-    t = threading.Thread(target=start_app)
-    t.start()
-    tt = threading.Thread(target=download_loop)
-    tt.start()
+    eel.spawn(download_loop)
+    start_app()

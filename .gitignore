@@ -1,3 +1,6 @@
 *.pyc
 .db.json
 env/
+build/
+dist/
+main.spec
