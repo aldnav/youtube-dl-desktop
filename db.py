@@ -6,21 +6,27 @@ db = TinyDB('./.db.json')
 
 
 def list_queue():
-    queue = Query()
-    items = db.search(queue.progress >= 0)
+    items = db.all()
     return items
 
 
 def list_unstarted_queue():
     queue = Query()
-    items = db.search(queue.progress == 0)
+    items = db.search(queue.status == 'pending')
     return items
 
 
-def add_queue(url):
+def add_queue(url, title, image_url):
     key = str(uuid4())
-    data = {'key': key, 'url': url, 'progress': 0}
-    db.insert({'key': key, 'url': url, 'progress': 0})
+    data = {
+        'key': key,
+        'url': url,
+        'title': title,
+        'image_url': image_url,
+        'status': 'pending',
+        'downloadInfo': {}
+    }
+    db.insert(data)
     return data
 
 
@@ -33,13 +39,13 @@ def get_queue_by_key(key):
         return None
 
 
-def get_progress(key):
-    queue = get_queue_by_key(key)
-    if queue:
-        return queue['progress']
-    return 0
-
-
-def set_progress(key, value):
+def set_status(key, status):
     queue = Query()
-    db.update(operations.set('progress', value), queue.key == key)
+    db.update({'status': status}, queue.key == key)
+    return get_queue_by_key(key)
+
+
+def set_download_info(key, info):
+    queue = Query()
+    db.update({'downloadInfo': info}, queue.key == key)
+    return get_queue_by_key(key)

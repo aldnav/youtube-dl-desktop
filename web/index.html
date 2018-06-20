@@ -1,14 +1,20 @@
-<html>
-    <head>
-        <title>Youtube Download</title>
-        <script type="text/javascript" src="/eel.js"></script>
-    </head>
-    <body>
-        <form>
-            <input type="text" name="url" id="url">
-            <button>Download</button>
-        </form>
-        <ul id="list"></ul>
-        <script type="text/javascript" src="/app.js"></script>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>YDL</title>
+    <script type="text/javascript" src="/eel.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/dist/build.js"></script>
+    <script>
+        function updateDownloads(download) {
+            var event = new CustomEvent('updateDownload', { detail: download });
+            window.dispatchEvent(event);
+            return 1;
+        }
+        eel.expose(updateDownloads);
+    </script>
+  </body>
 </html>
