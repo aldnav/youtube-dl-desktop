@@ -2,18 +2,21 @@
     <div id="app">
         <navbar></navbar>
         <download-form></download-form>
+        <downloads-list></downloads-list>
     </div>
 </template>
 
 <script>
 import Navbar from './navbar.vue';
 import DownloadForm from './download_form.vue';
+import DownLoadsList from './downloads_list.vue';
 
 export default {
   name: 'app',
   components: {
     navbar: Navbar,
-    downloadForm: DownloadForm
+    downloadForm: DownloadForm,
+    downloadsList: DownLoadsList
   }
 }
 </script>
@@ -26,6 +29,7 @@ body {
   margin: 0px;
   background-color: #121212;
   height: 100%;
+  box-sizing: border-box;
 }
 
 @font-face {

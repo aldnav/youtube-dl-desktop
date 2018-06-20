@@ -8,5 +8,13 @@
   <body>
     <div id="app"></div>
     <script src="/dist/build.js"></script>
+    <script>
+        function updateDownloads(download) {
+            var event = new CustomEvent('updateDownload', { detail: download });
+            window.dispatchEvent(event);
+            return 1;
+        }
+        eel.expose(updateDownloads);
+    </script>
   </body>
 </html>

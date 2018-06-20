@@ -1,16 +1,17 @@
 import eel
 import db
-from download import download
+from download import download, get_meta
 
 
 @eel.expose
 def queue_download(url):
-    data = db.add_queue(url)
+    meta = get_meta(url=url)
+    data = db.add_queue(url, **meta)
     return data
 
 
 @eel.expose
-def list_active_downloads():
+def list_downloads():
     items = db.list_queue()
     return items
 
@@ -21,6 +22,7 @@ def download_loop():
         try:
             item = items[0]
             download(item['key'])
+            eel.sleep(10)
         except IndexError:
             pass
         eel.sleep(3)
