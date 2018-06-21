@@ -1,5 +1,20 @@
 # Youtube dl desktop app
 
 ## How to run
-* install the requirements using pip using the command `pip install -r requirements.txt`
-* run the main file using the command `python main.py`
+* install the requirements using pip 
+```
+$ pip install -r requirements.txt
+```
+* build vue
+```
+$ cd web
+$ npm install
+$ npm run build
+```
+* run the main file
+```
+$ cd ..
+$ python main.py
+```
+
+![image](image.png)
